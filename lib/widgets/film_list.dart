@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:starwars_app/models/film.dart';
+import 'package:starwars_app/widgets/film_list_tile.dart';
 
 class FilmList extends StatelessWidget {
   const FilmList({
@@ -15,9 +15,9 @@ class FilmList extends StatelessWidget {
     return Container(
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Text(
-            films.elementAt(index).title,
-          );
+          var film = films[index];
+
+          return FilmListTile(film: film);
         },
         itemCount: films.length,
       ),
