@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:starwars_app/api/swapi.dart';
 import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/services/films_service.dart';
+import 'package:starwars_app/widgets/film_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,14 +41,34 @@ class _MyHomePageState extends State<MyHomePage> {
     futureFilms = filmsService.getFilms();
   }
 
+  FutureBuilder<List<Film>> filmsList() {
+    return FutureBuilder<List<Film>>(
+      future: futureFilms,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<Film> films = snapshot.data!;
+
+          return FilmList(films: films);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+
+        // By default, show a loading spinner.
+        return CircularProgressIndicator();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   title: Text(widget.title),
+      // ),
       body: Container(
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        child: filmsList(),
+      ),
     );
   }
 }
+
