@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:starwars_app/api/swapi.dart';
 import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/services/films_service.dart';
 import 'package:starwars_app/widgets/film_list.dart';
@@ -54,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
 
         // By default, show a loading spinner.
-        return CircularProgressIndicator();
+        return Center(child: CircularProgressIndicator());
       },
     );
   }
@@ -66,6 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
       //   title: Text(widget.title),
       // ),
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
         child: filmsList(),
       ),
     );
