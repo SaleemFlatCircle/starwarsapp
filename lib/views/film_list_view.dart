@@ -4,14 +4,20 @@ import 'package:starwars_app/services/films_service.dart';
 import 'package:starwars_app/widgets/film_list.dart';
 
 class FilmListView extends StatefulWidget {
-  FilmListView({Key? key}) : super(key: key);
+  final ValueChanged<Film> onFilmSelect;
+
+  FilmListView({Key? key, required this.onFilmSelect}) : super(key: key);
 
   @override
-  _FilmListViewState createState() => _FilmListViewState();
+  _FilmListViewState createState() => _FilmListViewState(onFilmSelect);
 }
 
 class _FilmListViewState extends State<FilmListView> {
   late Future<List<Film>> futureFilms;
+
+  final ValueChanged<Film> onFilmSelect;
+
+  _FilmListViewState(this.onFilmSelect);
 
   @override
   void initState() {
@@ -28,8 +34,9 @@ class _FilmListViewState extends State<FilmListView> {
         if (snapshot.hasData) {
           List<Film> films = snapshot.data!;
 
-          return FilmList(films: films);
+          return FilmList(films: films, onFilmSelect: onFilmSelect);
         } else if (snapshot.hasError) {
+
           return Text("${snapshot.error}");
         }
 

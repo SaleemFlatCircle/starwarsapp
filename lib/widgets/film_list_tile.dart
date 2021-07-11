@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:starwars_app/models/film.dart';
 
 class FilmListTile extends StatelessWidget {
+  final ValueChanged<Film> onFilmSelect;
+
   const FilmListTile({
     Key? key,
     required this.film,
+    required this.onFilmSelect
   }) : super(key: key);
 
   final Film film;
@@ -12,6 +15,9 @@ class FilmListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        onFilmSelect(film);
+      },
       leading: CircleAvatar(
         child: Text("image Here"),
         radius: 40,

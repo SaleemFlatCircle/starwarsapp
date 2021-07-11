@@ -3,10 +3,10 @@ import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/widgets/film_list_tile.dart';
 
 class FilmList extends StatelessWidget {
-  const FilmList({
-    Key? key,
-    required this.films,
-  }) : super(key: key);
+  final ValueChanged<Film> onFilmSelect;
+
+  const FilmList({Key? key, required this.films, required this.onFilmSelect})
+      : super(key: key);
 
   final List<Film> films;
 
@@ -17,7 +17,10 @@ class FilmList extends StatelessWidget {
         itemBuilder: (context, index) {
           var film = films[index];
 
-          return FilmListTile(film: film);
+          return FilmListTile(
+            film: film,
+            onFilmSelect: onFilmSelect,
+          );
         },
         itemCount: films.length,
       ),

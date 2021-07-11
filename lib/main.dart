@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/views/film_list_view.dart';
+import 'package:starwars_app/views/film_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,6 +14,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Film? _selectedFilm;
+
+  void _onFilmSelected(Film film) {
+    setState(() {
+      _selectedFilm = film;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +31,17 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Navigator(
         pages: [
-          MaterialPage(child: FilmListView()),
+          MaterialPage(
+            child: FilmListView(
+              onFilmSelect: _onFilmSelected,
+            ),
+          ),
+          if (_selectedFilm != null)
+            MaterialPage(
+              child: FilmView(
+                film: _selectedFilm!,
+              ),
+            )
         ],
         onPopPage: (route, result) {
           if (!route.didPop(result)) {
