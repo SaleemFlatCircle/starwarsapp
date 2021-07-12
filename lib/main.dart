@@ -48,6 +48,10 @@ class _MyAppState extends State<MyApp> {
             return false;
           }
 
+          setState(() {
+            _selectedFilm = null;
+          });
+
           return true;
         },
       ),

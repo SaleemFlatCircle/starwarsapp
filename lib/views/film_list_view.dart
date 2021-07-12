@@ -49,9 +49,9 @@ class _FilmListViewState extends State<FilmListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
+      appBar: AppBar(
+        title: Text("Films"),
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,

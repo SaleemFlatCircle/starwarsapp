@@ -20,8 +20,64 @@ class _FilmViewState extends State<FilmView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(film.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(film.title),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      film.title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      film.releaseDate.toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Characters",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    Text(
+                      "LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Text(film.openingCrawl),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
