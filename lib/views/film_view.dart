@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:starwars_app/models/character.dart';
 import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/services/characters_service.dart';
@@ -32,6 +33,10 @@ class _FilmViewState extends State<FilmView> {
         characterService.getCharactesFromUrls(film.characterUrls);
   }
 
+  String get dateString {
+    return DateFormat("yyyy-MM-dd").format(film.releaseDate).toString();
+  }
+
   FutureBuilder<List<Character>> characterList() {
     return FutureBuilder<List<Character>>(
       future: futureCharacters,
@@ -56,44 +61,39 @@ class _FilmViewState extends State<FilmView> {
       appBar: AppBar(
         title: Text(film.title),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Container(
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      film.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    film.title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      film.releaseDate.toString(),
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
+                  ),
+                  Text(
+                    dateString,
+                    style: TextStyle(
+                      fontSize: 14,
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 8),
+                    child: characterList(),
+                  ),
+                ],
               ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 8),
-                child: characterList(),
-              ),
-              CrawlingText(crawlingText: film.openingCrawl),
-            ],
+            ),
           ),
-        ),
+          SizedBox(height: 16),
+          CrawlingText(crawlingText: film.openingCrawl),
+        ],
       ),
     );
   }
