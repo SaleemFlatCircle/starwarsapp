@@ -3,6 +3,7 @@ import 'package:starwars_app/models/character.dart';
 import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/services/characters_service.dart';
 import 'package:starwars_app/widgets/character_list.dart';
+import 'package:starwars_app/widgets/crawling_text.dart';
 
 class FilmView extends StatefulWidget {
   final Film film;
@@ -16,8 +17,6 @@ class FilmView extends StatefulWidget {
   _FilmViewState createState() => _FilmViewState(film: film);
 }
 
-
-
 class _FilmViewState extends State<FilmView> {
   final Film film;
   late Future<List<Character>> futureCharacters;
@@ -29,7 +28,8 @@ class _FilmViewState extends State<FilmView> {
     super.initState();
     var characterService = CharactersService();
 
-    futureCharacters = characterService.getCharactesFromUrls(film.characterUrls);
+    futureCharacters =
+        characterService.getCharactesFromUrls(film.characterUrls);
   }
 
   FutureBuilder<List<Character>> characterList() {
@@ -38,10 +38,9 @@ class _FilmViewState extends State<FilmView> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Character> characters = snapshot.data!;
-          print("ALLAH" + characters.toString());
+
           return CharacterList(characters: characters);
         } else if (snapshot.hasError) {
-
           return Text("${snapshot.error}");
         }
 
@@ -91,9 +90,7 @@ class _FilmViewState extends State<FilmView> {
                 margin: EdgeInsets.only(bottom: 8),
                 child: characterList(),
               ),
-              Container(
-                child: Text(film.openingCrawl),
-              )
+              CrawlingText(crawlingText: film.openingCrawl),
             ],
           ),
         ),
