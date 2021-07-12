@@ -91,8 +91,14 @@ class _FilmViewState extends State<FilmView> {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          CrawlingText(crawlingText: film.openingCrawl),
+          SizedBox(height: 4),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+              color: Colors.black,
+              child: CrawlingText(text: film.openingCrawl),
+            ),
+          ),
         ],
       ),
     );
