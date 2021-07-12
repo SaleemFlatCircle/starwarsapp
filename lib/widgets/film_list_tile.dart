@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:starwars_app/models/film.dart';
+import 'package:starwars_app/services/films_service.dart';
 
 class FilmListTile extends StatelessWidget {
   final ValueChanged<Film> onFilmSelect;
+  final filmService = FilmsService();
 
-  const FilmListTile({
+  FilmListTile({
     Key? key,
     required this.film,
     required this.onFilmSelect
@@ -19,7 +21,7 @@ class FilmListTile extends StatelessWidget {
         onFilmSelect(film);
       },
       leading: CircleAvatar(
-        child: Text("image Here"),
+        child: Image(image: filmService.getPosterForFilm(film)),
         radius: 40,
       ),
       title: Container(
