@@ -6,11 +6,14 @@ class CharactersService {
 
   Future<List<Character>> getCharactesFromUrls(List<String> urls) async {
     List<Character> characters = [];
-    
-    urls.forEach((url) async {
-      var character = await _swapiApi.getCharacterFromUrl(url);
-      characters.add(character);
-    });
+    List<Future<Character>> futureCharacters = [];
+
+    for (var url in urls) {
+      var futureCharacter = _swapiApi.getCharacterFromUrl(url);
+      futureCharacters.add(futureCharacter);    
+    }
+
+    characters = await Future.wait(futureCharacters);
 
     return characters;
   }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_app/models/character.dart';
 import 'package:starwars_app/models/film.dart';
+import 'package:starwars_app/services/characters_service.dart';
+import 'package:starwars_app/widgets/character_list.dart';
 
 class FilmView extends StatefulWidget {
   final Film film;
@@ -13,10 +16,40 @@ class FilmView extends StatefulWidget {
   _FilmViewState createState() => _FilmViewState(film: film);
 }
 
+
+
 class _FilmViewState extends State<FilmView> {
   final Film film;
+  late Future<List<Character>> futureCharacters;
 
   _FilmViewState({required this.film});
+
+  @override
+  void initState() {
+    super.initState();
+    var characterService = CharactersService();
+
+    futureCharacters = characterService.getCharactesFromUrls(film.characterUrls);
+  }
+
+  FutureBuilder<List<Character>> characterList() {
+    return FutureBuilder<List<Character>>(
+      future: futureCharacters,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<Character> characters = snapshot.data!;
+          print("ALLAH" + characters.toString());
+          return CharacterList(characters: characters);
+        } else if (snapshot.hasError) {
+
+          return Text("${snapshot.error}");
+        }
+
+        // By default, show a loading spinner.
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,20 +89,7 @@ class _FilmViewState extends State<FilmView> {
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.only(bottom: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Characters",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    Text(
-                      "LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS AND LOTS",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
+                child: characterList(),
               ),
               Container(
                 child: Text(film.openingCrawl),
