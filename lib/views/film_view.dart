@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:starwars_app/models/character.dart';
 import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/services/characters_service.dart';
-import 'package:starwars_app/widgets/character_list.dart';
-import 'package:starwars_app/widgets/crawling_text.dart';
+import 'package:starwars_app/widgets/film-details/character_list.dart';
+import 'package:starwars_app/widgets/film-details/crawling_text.dart';
 
 class FilmView extends StatefulWidget {
   final Film film;

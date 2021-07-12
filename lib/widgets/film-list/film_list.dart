@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:starwars_app/models/film.dart';
-import 'package:starwars_app/widgets/film_list_tile.dart';
+import 'package:starwars_app/widgets/film-list/film_list_tile.dart';
 
 class FilmList extends StatelessWidget {
   final ValueChanged<Film> onFilmSelect;

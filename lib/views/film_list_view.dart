@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:starwars_app/models/film.dart';
 import 'package:starwars_app/services/films_service.dart';
-import 'package:starwars_app/widgets/film_list.dart';
+import 'package:starwars_app/widgets/film-list/film_list.dart';
 
 class FilmListView extends StatefulWidget {
   final ValueChanged<Film> onFilmSelect;
